@@ -1,15 +1,12 @@
-﻿
-namespace DNT.Domain
+﻿namespace DNT.Domain
 {
-    public class User : IHasKey
+    public class UserDto
     {
         public required Guid Id { get; set; }
 
         public required string Name { get; set; }
 
         public required string UserName { get; set; }
-
-        public required string Password { get; set; }
 
         public required byte Active { get; set; }
 
@@ -22,10 +19,5 @@ namespace DNT.Domain
         public required Guid Role_Id { get; set; }
 
         public required byte Status { get; set; }
-
-        public Guid GetKey()
-        {
-            return Id;
-        }
     }
 }

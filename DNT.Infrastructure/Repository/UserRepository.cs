@@ -9,11 +9,12 @@ namespace DNT.Infrastructure
         {
         }
 
-        public override async Task<IEnumerable<User>> GetAll()
+        public async Task<User?> FindByUserName(string userName)
         {
-            var entities = await _context.Users.ToListAsync();
+            var user = await _context.User.FirstOrDefaultAsync(x => x.UserName == userName);
 
-            return entities;
+            return user;
         }
+
     }
 }

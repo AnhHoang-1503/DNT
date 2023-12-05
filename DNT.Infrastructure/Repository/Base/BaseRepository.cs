@@ -17,6 +17,7 @@ namespace DNT.Infrastructure
         public async Task Create(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(Guid id)

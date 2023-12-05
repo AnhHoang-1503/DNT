@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DNT.Controllers.Base
 {
-    public abstract class BaseController<TEntity> : ControllerBase
+    public abstract class BaseController<TEntity, TEntityDto, TEntityCUDto> : ControllerBase
     {
-        private readonly BaseService<TEntity> _baseService;
+        private readonly BaseService<TEntity, TEntityDto, TEntityCUDto> _baseService;
 
-        protected BaseController(BaseService<TEntity> baseService)
+        protected BaseController(BaseService<TEntity, TEntityDto, TEntityCUDto> baseService)
         {
             _baseService = baseService;
         }
@@ -33,17 +33,17 @@ namespace DNT.Controllers.Base
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TEntity entity)
+        public async Task<IActionResult> Create([FromBody] TEntityCUDto entityCUDto)
         {
-            await _baseService.Create(entity);
+            await _baseService.Create(entityCUDto);
 
             return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] TEntity entity)
+        public async Task<IActionResult> Put(Guid id, [FromBody] TEntityCUDto entityCUDto)
         {
-            await _baseService.Update(id, entity);
+            await _baseService.Update(id, entityCUDto);
 
             return StatusCode(StatusCodes.Status200OK);
         }

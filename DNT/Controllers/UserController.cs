@@ -6,7 +6,7 @@ namespace DNT.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : BaseController<User>
+    public class UserController : BaseController<User, UserDto, UserCUDto>
     {
         public UserController(UserService userService) : base(userService)
         {

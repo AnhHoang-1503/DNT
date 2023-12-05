@@ -1,5 +1,4 @@
 ﻿using DNT.Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DNT.Controllers
@@ -16,9 +15,9 @@ namespace DNT.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] User user)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var token = _loginService.Login(user);
+            var token = await _loginService.Login(loginDto);
 
             return StatusCode(StatusCodes.Status200OK, token);
         }
