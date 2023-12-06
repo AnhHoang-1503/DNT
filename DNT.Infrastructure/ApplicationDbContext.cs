@@ -10,5 +10,7 @@ namespace DNT.Infrastructure
         }
 
         public DbSet<User> User { get; set; }
+
+        public DbSet<ForHelpRequest> ForHelpRequest { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 using DNT;
 using DNT.Domain;
 using DNT.Domain.Common;
+using DNT.Domain.Service;
 using DNT.Infrastructure;
+using DNT.Infrastructure.Repository;
 using DNT.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +32,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 // User DI
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<UserService, UserService>();
+
+// ForHelpRequest
+builder.Services.AddScoped<IForHelpRequestRepository, ForHelpRequestRepository>();
+builder.Services.AddScoped<ForHelpRequestService, ForHelpRequestService>();
 
 // Auth DI
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();

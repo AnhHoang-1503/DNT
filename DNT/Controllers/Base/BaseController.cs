@@ -15,7 +15,6 @@ namespace DNT.Controllers.Base
             _baseService = baseService;
         }
 
-        [RequiresClaimAttibute("role", "admin")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
