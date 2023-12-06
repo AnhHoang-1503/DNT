@@ -1,9 +1,11 @@
 using DNT;
 using DNT.Domain;
+using DNT.Domain.Common;
 using DNT.Infrastructure;
 using DNT.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,8 +35,38 @@ builder.Services.AddScoped<UserService, UserService>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<LoginService, LoginService>();
 
+builder.Services.AddScoped<UserSessionState, UserSessionState>();
+
 // Auth
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
+{
+    o.Events = new JwtBearerEvents()
+    {
+        OnTokenValidated = context =>
+        {
+            var userSessionState = context.HttpContext.RequestServices.GetRequiredService<UserSessionState>();
+
+            var claims = context.Principal?.Claims;
+
+            var userName = claims?.FirstOrDefault(c => c.Type == "name");
+
+            var userId = claims?.FirstOrDefault(c => c.Type == "user_id");
+
+
+            if (userName != null)
+            {
+                userSessionState.Name = userName.Value;
+            }
+
+            if (userId != null)
+            {
+                userSessionState.Id = Guid.Parse(userId.Value);
+            }
+
+            return Task.CompletedTask;
+        }
+    };
+});
 builder.Services.AddAuthorization();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();

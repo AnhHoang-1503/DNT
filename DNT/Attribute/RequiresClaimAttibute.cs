@@ -21,6 +21,17 @@ namespace DNT
             {
                 context.Result = new ForbidResult();
             }
+
+            var authorizationHeader = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+
+            string token;
+
+            if (authorizationHeader?.StartsWith("Bearer ") == true)
+            {
+                token = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+
         }
     }
 }

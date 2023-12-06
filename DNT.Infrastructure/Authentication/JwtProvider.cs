@@ -22,7 +22,8 @@ namespace DNT.Infrastructure
 
             if (user != null && !string.IsNullOrEmpty(user.Name))
             {
-                claims.Add(new Claim(JwtRegisteredClaimNames.Name, user.Name));
+                claims.Add(new Claim("name", user.Name));
+                claims.Add(new Claim("user_id", user.Id.ToString()));
             }
 
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)), SecurityAlgorithms.HmacSha256);
