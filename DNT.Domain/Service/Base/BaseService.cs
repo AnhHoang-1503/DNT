@@ -79,7 +79,7 @@ namespace DNT.Domain
         /// <returns></returns>
         public virtual async Task Update(Guid id, TEntityCUDto entityCUDto)
         {
-            var entity = MapCUDtoToEntity(entityCUDto);
+            var entity = MapCUDtoToEntity(entityCUDto, id);
 
             await _baseRepository.Update(id, entity);
         }
@@ -105,5 +105,7 @@ namespace DNT.Domain
         }
 
         public abstract TEntity MapCUDtoToEntity(TEntityCUDto entityCUDto);
+
+        public abstract TEntity MapCUDtoToEntity(TEntityCUDto entityCUDto, Guid id);
     }
 }

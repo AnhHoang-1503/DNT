@@ -24,13 +24,20 @@ namespace DNT.Domain
 
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
-            if (user.Id == Guid.Empty)
-            {
-                user.Id = Guid.NewGuid();
-            }
+            user.Id = Guid.NewGuid();
 
             return user;
         }
 
+        public override User MapCUDtoToEntity(UserCUDto userCUDto, Guid id)
+        {
+            var user = _mapper.Map<User>(userCUDto);
+
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+            user.Id = id;
+
+            return user;
+        }
     }
 }

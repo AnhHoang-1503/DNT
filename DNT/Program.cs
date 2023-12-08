@@ -37,6 +37,10 @@ builder.Services.AddScoped<UserService, UserService>();
 builder.Services.AddScoped<IForHelpRequestRepository, ForHelpRequestRepository>();
 builder.Services.AddScoped<ForHelpRequestService, ForHelpRequestService>();
 
+// Event
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<EventService, EventService>();
+
 // Auth DI
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<LoginService, LoginService>();

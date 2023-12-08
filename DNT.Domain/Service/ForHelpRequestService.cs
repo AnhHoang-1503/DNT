@@ -15,10 +15,19 @@ namespace DNT.Domain.Service
             forHelpRequest.User_id = Guid.Parse(entityCUDto.User_id);
             forHelpRequest.Organization_Id = Guid.Parse(entityCUDto.Organization_Id);
 
-            if (forHelpRequest.Id == Guid.Empty)
-            {
-                forHelpRequest.Id = Guid.NewGuid();
-            }
+            forHelpRequest.Id = Guid.NewGuid();
+
+            return forHelpRequest;
+        }
+
+        public override ForHelpRequest MapCUDtoToEntity(ForHelpRequestCUDto entityCUDto, Guid id)
+        {
+            var forHelpRequest = _mapper.Map<ForHelpRequest>(entityCUDto);
+
+            forHelpRequest.User_id = Guid.Parse(entityCUDto.User_id);
+            forHelpRequest.Organization_Id = Guid.Parse(entityCUDto.Organization_Id);
+
+            forHelpRequest.Id = id;
 
             return forHelpRequest;
         }

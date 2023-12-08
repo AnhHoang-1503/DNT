@@ -9,7 +9,7 @@ namespace DNT.Domain
 
         public required DateTime Date { get; set; }
 
-        public required ForHelpRequestStatus Status { get; set; }
+        public required Status Status { get; set; }
 
         public required Guid User_id { get; set; }
 

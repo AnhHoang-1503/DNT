@@ -1,6 +1,6 @@
 ﻿namespace DNT.Domain
 {
-    public enum ForHelpRequestStatus
+    public enum Status
     {
         initial,
         approved,
