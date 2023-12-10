@@ -16,7 +16,7 @@ namespace DNT.Controllers.Base
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public virtual async Task<IActionResult> GetAll()
         {
             var entities = await _baseService.GetAll();
 
@@ -24,7 +24,7 @@ namespace DNT.Controllers.Base
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public virtual async Task<IActionResult> GetById(Guid id)
         {
             var entity = await _baseService.GetById(id);
 
@@ -32,7 +32,7 @@ namespace DNT.Controllers.Base
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TEntityCUDto entityCUDto)
+        public virtual async Task<IActionResult> Create([FromBody] TEntityCUDto entityCUDto)
         {
             await _baseService.Create(entityCUDto);
 
@@ -40,7 +40,7 @@ namespace DNT.Controllers.Base
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] TEntityCUDto entityCUDto)
+        public virtual async Task<IActionResult> Put(Guid id, [FromBody] TEntityCUDto entityCUDto)
         {
             await _baseService.Update(id, entityCUDto);
 
@@ -48,7 +48,7 @@ namespace DNT.Controllers.Base
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public virtual async Task<IActionResult> Delete(Guid id)
         {
             await _baseService.Delete(id);
 
@@ -56,7 +56,7 @@ namespace DNT.Controllers.Base
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteMany([FromBody] List<Guid> ids)
+        public virtual async Task<IActionResult> DeleteMany([FromBody] List<Guid> ids)
         {
             await _baseService.DeleteMany(ids);
 

@@ -15,5 +15,9 @@ namespace DNT.Infrastructure
 
         public DbSet<Event> Event { get; set; }
 
+        public DbSet<Comment> Comment { get; set; }
+
+        public DbSet<EventLike> EventLike { get; set; }
+
     }
 }
