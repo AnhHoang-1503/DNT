@@ -11,7 +11,7 @@ namespace DNT.Domain
 
         public required string Password { get; set; }
 
-        public required byte Active { get; set; }
+        public required Boolean Active { get; set; }
 
         public required string Phone { get; set; }
 
@@ -19,9 +19,9 @@ namespace DNT.Domain
 
         public required string Address { get; set; }
 
-        public required Guid Role_Id { get; set; }
+        public required Role Role { get; set; }
 
-        public required byte Status { get; set; }
+        public required Status Status { get; set; }
 
         public Guid GetKey()
         {

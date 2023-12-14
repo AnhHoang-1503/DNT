@@ -29,5 +29,8 @@ namespace DNT.Infrastructure
 
         public DbSet<IsMember> IsMember { get; set; }
 
+        public DbSet<StatisticalReport> StatisticalReport { get; set; }
+
+        public DbSet<EventResponse> EventResponse { get; set; }
     }
 }

@@ -2,5 +2,6 @@
 {
     public interface IEventRepository : IBaseRepository<Event>
     {
+        Task<IEnumerable<Event>> GetByOrganizationId(Guid organizationId);
     }
 }

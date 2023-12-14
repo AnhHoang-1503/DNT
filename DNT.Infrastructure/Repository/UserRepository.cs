@@ -11,7 +11,7 @@ namespace DNT.Infrastructure
 
         public async Task<User?> FindByUserName(string userName)
         {
-            var user = await _context.User.FirstOrDefaultAsync(x => x.UserName == userName);
+            var user = await _dbSet.FirstOrDefaultAsync(x => x.UserName == userName);
 
             return user;
         }

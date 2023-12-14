@@ -79,6 +79,14 @@ builder.Services.AddScoped<JoinRequestService, JoinRequestService>();
 // IsMember DI
 builder.Services.AddScoped<IIsMemberRepository, IsMemberRepository>();
 
+// StatisticalReport DI
+builder.Services.AddScoped<IStatisticalReportRepository, StatisticalReportRepository>();
+builder.Services.AddScoped<StatisticalReportService, StatisticalReportService>();
+
+// EventResponse DI
+builder.Services.AddScoped<IEventResponseRepository, EventResponseRepository>();
+builder.Services.AddScoped<EventResponseService, EventResponseService>();
+
 // UserSessionState
 builder.Services.AddScoped<UserSessionState, UserSessionState>();
 

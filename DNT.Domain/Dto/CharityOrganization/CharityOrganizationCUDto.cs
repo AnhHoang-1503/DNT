@@ -9,7 +9,5 @@
         public string? Website { get; set; }
 
         public string? Description { get; set; }
-
-        public Guid Volunteer_Id { get; set; }
     }
 }

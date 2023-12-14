@@ -9,8 +9,19 @@ namespace DNT.Controllers
     [ApiController]
     public class EventController : BaseController<Event, EventDto, EventCUDto>
     {
+        private readonly EventService _eventService;
+
         public EventController(EventService eventService) : base(eventService)
         {
+            _eventService = eventService;
+        }
+
+        [HttpGet("organization/{organizationId}")]
+        public async Task<IActionResult> GetByOrganizationId(Guid organizationId)
+        {
+            var eventDtos = await _eventService.GetByOrganizationId(organizationId);
+
+            return StatusCode(StatusCodes.Status200OK, eventDtos);
         }
     }
 }
