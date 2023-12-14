@@ -17,7 +17,6 @@ namespace DNT.Infrastructure
         public async Task Create(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(Guid id)
@@ -29,7 +28,6 @@ namespace DNT.Infrastructure
             }
 
             _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteMany(List<Guid> ids)
@@ -42,7 +40,6 @@ namespace DNT.Infrastructure
             }
 
             _dbSet.RemoveRange(entities);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<TEntity?> FindById(Guid id)
@@ -80,7 +77,18 @@ namespace DNT.Infrastructure
 
             _context.Entry(existingEntity).CurrentValues.SetValues(entity);
 
+        }
+
+        public async Task SaveChanges()
+        {
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetByListIds(List<Guid> ids)
+        {
+            var entities = await _dbSet.Where(entity => ids.Contains(entity.Id)).ToListAsync();
+
+            return entities;
         }
     }
 }

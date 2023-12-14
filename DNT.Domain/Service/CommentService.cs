@@ -17,6 +17,8 @@ namespace DNT.Domain
         {
             var comment = _mapper.Map<Comment>(entityCUDto);
 
+            comment.Id = Guid.NewGuid();
+
             if (_userSessionState.Id.HasValue)
             {
                 comment.User_Id = _userSessionState.Id.Value;

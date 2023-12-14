@@ -19,5 +19,15 @@ namespace DNT.Infrastructure
 
         public DbSet<EventLike> EventLike { get; set; }
 
+        public DbSet<Volunteer> Volunteer { get; set; }
+
+        public DbSet<EventRegist> EventRegist { get; set; }
+
+        public DbSet<CharityOrganization> CharityOrganization { get; set; }
+
+        public DbSet<JoinRequest> JoinRequest { get; set; }
+
+        public DbSet<IsMember> IsMember { get; set; }
+
     }
 }

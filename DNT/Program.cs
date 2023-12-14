@@ -6,6 +6,7 @@ using DNT.Infrastructure;
 using DNT.Infrastructure.Repository;
 using DNT.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -21,6 +22,12 @@ builder.Services.AddControllers();
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Cors
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -45,10 +52,34 @@ builder.Services.AddScoped<EventService, EventService>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<CommentService, CommentService>();
 
+// EventLike DI
+builder.Services.AddScoped<IEventLikeRepository, EventLikeRepository>();
+builder.Services.AddScoped<EventLikeService, EventLikeService>();
+
 // Auth DI
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<LoginService, LoginService>();
 
+// Volunteer DI
+builder.Services.AddScoped<IVolunteerRepository, VolunteerRepository>();
+builder.Services.AddScoped<VolunteerService, VolunteerService>();
+
+// EventRegist DI   
+builder.Services.AddScoped<IEventRegistRepository, EventRegistRepository>();
+builder.Services.AddScoped<EventRegistService, EventRegistService>();
+
+// CharityOrganization DI
+builder.Services.AddScoped<ICharityOrganizationRepository, CharityOrganizationRepository>();
+builder.Services.AddScoped<CharityOrganizationService, CharityOrganizationService>();
+
+// JoinRequest DI
+builder.Services.AddScoped<IJoinRequestRepository, JoinRequestRepository>();
+builder.Services.AddScoped<JoinRequestService, JoinRequestService>();
+
+// IsMember DI
+builder.Services.AddScoped<IIsMemberRepository, IsMemberRepository>();
+
+// UserSessionState
 builder.Services.AddScoped<UserSessionState, UserSessionState>();
 
 // Auth
@@ -95,13 +126,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseMiddleware<Middleware>();
+app.UseCors("corsapp");
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();

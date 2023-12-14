@@ -15,6 +15,8 @@
         /// <returns></returns>
         Task<TEntity> GetById(Guid id);
 
+        Task<IEnumerable<TEntity>> GetByListIds(List<Guid> ids);
+
         /// <summary>
         /// Tim kiem theo id
         /// </summary>
@@ -49,5 +51,11 @@
         /// <param name="ids"></param>
         /// <returns></returns>
         Task DeleteMany(List<Guid> ids);
+
+        /// <summary>
+        /// Lưu thay đổi
+        /// </summary>
+        /// <returns></returns>
+        Task SaveChanges();
     }
 }

@@ -70,6 +70,8 @@ namespace DNT.Domain
             var entity = MapCUDtoToEntity(entityCUDto);
 
             await _baseRepository.Create(entity);
+
+            await _baseRepository.SaveChanges();
         }
 
         /// <summary>
@@ -82,6 +84,8 @@ namespace DNT.Domain
             var entity = MapCUDtoToEntity(entityCUDto, id);
 
             await _baseRepository.Update(id, entity);
+
+            await _baseRepository.SaveChanges();
         }
 
         /// <summary>
@@ -92,6 +96,8 @@ namespace DNT.Domain
         public virtual async Task Delete(Guid id)
         {
             await _baseRepository.Delete(id);
+
+            await _baseRepository.SaveChanges();
         }
 
         /// <summary>
@@ -102,6 +108,8 @@ namespace DNT.Domain
         public virtual async Task DeleteMany(List<Guid> ids)
         {
             await _baseRepository.DeleteMany(ids);
+
+            await _baseRepository.SaveChanges();
         }
 
         public abstract TEntity MapCUDtoToEntity(TEntityCUDto entityCUDto);

@@ -17,6 +17,8 @@ namespace DNT.Domain
         {
             var eventLike = _mapper.Map<EventLike>(entityCUDto);
 
+            eventLike.Id = Guid.NewGuid();
+
             if (_userSessionState.Id.HasValue)
             {
                 eventLike.User_Id = _userSessionState.Id.Value;
