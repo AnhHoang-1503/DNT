@@ -27,5 +27,7 @@
         public required string Review { get; set; }
 
         public required Type Type { get; set; }
+
+        public CharityOrganizationDto? CharityOrganization { get; set; }
     }
 }

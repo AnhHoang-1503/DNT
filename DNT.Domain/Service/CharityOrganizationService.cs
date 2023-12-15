@@ -8,9 +8,21 @@ namespace DNT.Domain
     {
         private readonly UserSessionState _userSessionState;
 
+        private readonly ICharityOrganizationRepository _charityOrganizationRepository;
+
         public CharityOrganizationService(ICharityOrganizationRepository charityOrganizationRepository, UserSessionState userSessionState, IMapper mapper) : base(charityOrganizationRepository, mapper)
         {
             _userSessionState = userSessionState;
+            _charityOrganizationRepository = charityOrganizationRepository;
+        }
+
+        public async Task<CharityOrganizationDto> GetByUserId(Guid id)
+        {
+            var charityOrganization = await _charityOrganizationRepository.GetByUserId(id);
+
+            var charityOrganizationDto = _mapper.Map<CharityOrganizationDto>(charityOrganization);
+
+            return charityOrganizationDto;
         }
 
         public override CharityOrganization MapCUDtoToEntity(CharityOrganizationCUDto entityCUDto)

@@ -5,14 +5,16 @@ namespace DNT.Domain
     {
         private readonly IJwtProvider _jwtProvider;
         private readonly UserService _userService;
+        private readonly CharityOrganizationService _charityOrganizationService;
 
-        public LoginService(IJwtProvider jwtProvider, UserService userService)
+        public LoginService(IJwtProvider jwtProvider, UserService userService, CharityOrganizationService charityOrganizationService)
         {
             _jwtProvider = jwtProvider;
             _userService = userService;
+            _charityOrganizationService = charityOrganizationService;
         }
 
-        public async Task<string> Login(LoginDto loginDto)
+        public async Task<LoginResponseDto> Login(LoginDto loginDto)
         {
             var user = await _userService.FindByUserName(loginDto.UserName);
 
@@ -28,7 +30,22 @@ namespace DNT.Domain
 
             var token = _jwtProvider.Generate(user);
 
-            return token;
+            var userDto = await _userService.GetById(user.Id);
+
+            var loginResponseDto = new LoginResponseDto
+            {
+                Token = token,
+                User = userDto,
+            };
+
+            if (userDto.Role == Role.Ogranization)
+            {
+                var charityOrganizationDto = await _charityOrganizationService.GetByUserId(user.Id);
+
+                loginResponseDto.CharityOrganization = charityOrganizationDto;
+            }
+
+            return loginResponseDto;
         }
     }
 }

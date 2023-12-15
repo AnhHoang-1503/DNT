@@ -19,5 +19,8 @@
         public required Role Role { get; set; }
 
         public required Status Status { get; set; }
+        public string? Image { get; set; }
+        public CharityOrganizationDto? CharityOrganization { get; set; }
+
     }
 }

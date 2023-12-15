@@ -7,11 +7,13 @@ namespace DNT.Domain
     {
         private readonly IUserRepository _userRepository;
         private readonly UserSessionState _userSessionState;
+        private readonly CharityOrganizationService _charityOrganizationService;
 
-        public UserService(IUserRepository userRepository, UserSessionState userSessionState, IMapper mapper) : base(userRepository, mapper)
+        public UserService(IUserRepository userRepository, UserSessionState userSessionState, IMapper mapper, CharityOrganizationService charityOrganizationService) : base(userRepository, mapper)
         {
             _userRepository = userRepository;
             _userSessionState = userSessionState;
+            _charityOrganizationService = charityOrganizationService;
         }
 
         public async Task<User?> FindByUserName(string userName)
@@ -21,16 +23,23 @@ namespace DNT.Domain
             return user;
         }
 
-        public async Task<UserDto?> GetCurrentUser()
+        public async Task<UserDto> GetCurrentUser()
         {
             if (!_userSessionState.Id.HasValue)
             {
                 throw new Exception("User is not logged in");
             }
 
-            var user = await _userRepository.FindById(_userSessionState.Id.Value);
+            var user = await _userRepository.GetById(_userSessionState.Id.Value);
 
             var userDto = _mapper.Map<UserDto>(user);
+
+            if (userDto.Role == Role.Ogranization)
+            {
+                var charityOrganizationDto = await _charityOrganizationService.GetByUserId(user.Id);
+
+                userDto.CharityOrganization = charityOrganizationDto;
+            }
 
             return userDto;
         }

@@ -23,6 +23,8 @@ namespace DNT.Domain
 
         public required Status Status { get; set; }
 
+        public string? Image { get; set; }
+
         public Guid GetKey()
         {
             return Id;
