@@ -2,31 +2,33 @@
 {
     public class EventDto
     {
-        public required string Title { get; set; }
+        public Guid Id { get; set; }
 
-        public required string Content { get; set; }
+        public string? Title { get; set; }
 
-        public required string Image { get; set; }
+        public string? Content { get; set; }
 
-        public required DateTime Created_Date { get; set; }
+        public string? Image { get; set; }
 
-        public required DateTime Modified_Date { get; set; }
+        public DateTime Created_Date { get; set; }
 
-        public required int Like_Count { get; set; }
+        public DateTime Modified_Date { get; set; }
 
-        public required Guid Organization_Id { get; set; }
+        public int Like_Count { get; set; }
 
-        public required string Text { get; set; }
+        public Guid Organization_Id { get; set; }
 
-        public required int Comment_Count { get; set; }
+        public string? Text { get; set; }
 
-        public required Status Status { get; set; }
+        public int Comment_Count { get; set; }
 
-        public required DateTime Time { get; set; }
+        public Status Status { get; set; }
 
-        public required string Review { get; set; }
+        public DateTime Time { get; set; }
 
-        public required Type Type { get; set; }
+        public string? Review { get; set; }
+
+        public Type Type { get; set; }
 
         public CharityOrganizationDto? CharityOrganization { get; set; }
     }

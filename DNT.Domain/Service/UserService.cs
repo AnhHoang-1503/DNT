@@ -44,6 +44,24 @@ namespace DNT.Domain
             return userDto;
         }
 
+        public override async Task Update(Guid id, UserCUDto entityCUDto)
+        {
+            if (!_userSessionState.Id.HasValue)
+            {
+                throw new Exception("User is not logged in");
+            }
+
+            var exits = await _userRepository.GetById(_userSessionState.Id.Value);
+
+            var entity = MapCUDtoToEntity(entityCUDto, id);
+
+            entity.Role = exits.Role;
+
+            await _baseRepository.Update(id, entity);
+
+            await _baseRepository.SaveChanges();
+        }
+
         public override User MapCUDtoToEntity(UserCUDto userCUDto)
         {
             var user = _mapper.Map<User>(userCUDto);

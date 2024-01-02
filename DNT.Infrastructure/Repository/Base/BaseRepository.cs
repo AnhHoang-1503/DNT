@@ -19,7 +19,7 @@ namespace DNT.Infrastructure
             await _dbSet.AddAsync(entity);
         }
 
-        public async Task Delete(Guid id)
+        public virtual async Task Delete(Guid id)
         {
             var entity = await FindById(id);
             if (entity == null)
@@ -30,7 +30,7 @@ namespace DNT.Infrastructure
             _dbSet.Remove(entity);
         }
 
-        public async Task DeleteMany(List<Guid> ids)
+        public virtual async Task DeleteMany(List<Guid> ids)
         {
             var entities = await _dbSet.Where(entity => ids.Contains(entity.GetKey())).ToListAsync();
 
@@ -42,7 +42,7 @@ namespace DNT.Infrastructure
             _dbSet.RemoveRange(entities);
         }
 
-        public async Task<TEntity?> FindById(Guid id)
+        public virtual async Task<TEntity?> FindById(Guid id)
         {
             var entity = await _dbSet.FindAsync(id);
 
@@ -56,7 +56,7 @@ namespace DNT.Infrastructure
             return entities;
         }
 
-        public async Task<TEntity> GetById(Guid id)
+        public virtual async Task<TEntity> GetById(Guid id)
         {
             var entity = await FindById(id);
             if (entity == null)
@@ -67,7 +67,7 @@ namespace DNT.Infrastructure
             return entity;
         }
 
-        public async Task Update(Guid id, TEntity entity)
+        public virtual async Task Update(Guid id, TEntity entity)
         {
             var existingEntity = await GetById(id);
             if (entity == null)
@@ -79,16 +79,17 @@ namespace DNT.Infrastructure
 
         }
 
-        public async Task SaveChanges()
+        public virtual async Task SaveChanges()
         {
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetByListIds(List<Guid> ids)
+        public virtual async Task<IEnumerable<TEntity>> GetByListIds(List<Guid> ids)
         {
             var entities = await _dbSet.Where(entity => ids.Contains(entity.Id)).ToListAsync();
 
             return entities;
         }
+
     }
 }

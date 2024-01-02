@@ -32,5 +32,13 @@ namespace DNT.Controllers
 
             return StatusCode(StatusCodes.Status200OK);
         }
+
+        [HttpPost("user/{userId}")]
+        public async Task<IActionResult> GetByUserId(Guid userId)
+        {
+            var forHelpRequestDtos = await _forHelpRequestService.GetByUserId(userId);
+
+            return StatusCode(StatusCodes.Status200OK, forHelpRequestDtos);
+        }
     }
 }

@@ -21,6 +21,15 @@ namespace DNT.Domain
             return count;
         }
 
+        public async Task<IEnumerable<EventRegistDto>> GetByEventId(Guid eventId)
+        {
+            var comments = await _eventRegistRepository.FindByEventId(eventId);
+
+            var commentDtos = _mapper.Map<IEnumerable<EventRegistDto>>(comments);
+
+            return commentDtos;
+        }
+
         public override EventRegist MapCUDtoToEntity(EventRegistCUDto entityCUDto)
         {
             var eventRegist = _mapper.Map<EventRegist>(entityCUDto);

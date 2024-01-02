@@ -11,6 +11,15 @@ namespace DNT.Domain.Service
             _forHelpRequestRepository = forHelpRequestRepository;
         }
 
+        public async Task<IEnumerable<ForHelpRequestDto>> GetByUserId(Guid userId)
+        {
+            var forHelpRequests = await _forHelpRequestRepository.GetByUserId(userId);
+
+            var forHelpRequestsDtos = _mapper.Map<IEnumerable<ForHelpRequestDto>>(forHelpRequests);
+
+            return forHelpRequestsDtos;
+        }
+
         public async Task<IEnumerable<ForHelpRequestDto>> GetByOrganizationId(Guid organizationId)
         {
             var forHelpRequests = await _forHelpRequestRepository.GetByOrganizationId(organizationId);

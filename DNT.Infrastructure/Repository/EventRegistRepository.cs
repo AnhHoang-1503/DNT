@@ -15,5 +15,6 @@ namespace DNT.Infrastructure
 
             return eventRegists;
         }
+
     }
 }

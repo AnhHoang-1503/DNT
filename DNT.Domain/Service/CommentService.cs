@@ -7,10 +7,21 @@ namespace DNT.Domain
     public class CommentService : BaseService<Comment, CommentDto, CommentCUDto>
     {
         private readonly UserSessionState _userSessionState;
+        private readonly ICommentRepository _commentRepository;
 
         public CommentService(ICommentRepository commentRepository, IMapper mapper, UserSessionState userSessionState) : base(commentRepository, mapper)
         {
             _userSessionState = userSessionState;
+            _commentRepository = commentRepository;
+        }
+
+        public async Task<IEnumerable<CommentDto>> GetByEventId(Guid eventId)
+        {
+            var comments = await _commentRepository.FindByEventId(eventId);
+
+            var commentDtos = _mapper.Map<IEnumerable<CommentDto>>(comments);
+
+            return commentDtos;
         }
 
         public override Comment MapCUDtoToEntity(CommentCUDto entityCUDto)

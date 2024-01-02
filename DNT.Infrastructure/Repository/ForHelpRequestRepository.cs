@@ -11,9 +11,17 @@ namespace DNT.Infrastructure.Repository
 
         public async Task<IEnumerable<ForHelpRequest>> GetByOrganizationId(Guid organizationId)
         {
-            var events = await _dbSet.Where(e => e.Organization_Id == organizationId && e.Status == Status.initial).ToListAsync();
+            var forHelpRequests = await _dbSet.Where(e => e.Organization_Id == organizationId && e.Status == Status.initial).ToListAsync();
 
-            return events;
+            return forHelpRequests;
+        }
+
+        public async Task<IEnumerable<ForHelpRequest>> GetByUserId(Guid userId)
+        {
+            var forHelpRequests = await _dbSet.Where(e => e.User_id == userId).ToListAsync();
+
+            return forHelpRequests;
+
         }
     }
 }

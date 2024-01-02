@@ -23,5 +23,14 @@ namespace DNT.Controllers
 
             return StatusCode(StatusCodes.Status200OK, count);
         }
+
+
+        [HttpGet("event/{eventId}")]
+        public async Task<IActionResult> GetByEventId(Guid eventId)
+        {
+            var comments = await _eventRegistService.GetByEventId(eventId);
+
+            return StatusCode(StatusCodes.Status200OK, comments);
+        }
     }
 }
