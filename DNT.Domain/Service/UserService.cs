@@ -62,6 +62,14 @@ namespace DNT.Domain
                 entity.Password = exits.Password;
             }
 
+            foreach (var prop in entity.GetType().GetProperties())
+            {
+                if (prop.GetValue(entity) == null)
+                {
+                    prop.SetValue(entity, prop.GetValue(exits));
+                }
+            }
+
             await _baseRepository.Update(id, entity);
 
             await _baseRepository.SaveChanges();
