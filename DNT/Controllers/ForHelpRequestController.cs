@@ -40,5 +40,12 @@ namespace DNT.Controllers
 
             return StatusCode(StatusCodes.Status200OK, forHelpRequestDtos);
         }
+
+        public override async Task<IActionResult> Create([FromBody] ForHelpRequestCUDto entityCUDto)
+        {
+            var id = await _forHelpRequestService.CreateReturnId(entityCUDto);
+
+            return StatusCode(StatusCodes.Status200OK, id);
+        }
     }
 }

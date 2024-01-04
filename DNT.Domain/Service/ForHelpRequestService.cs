@@ -20,6 +20,17 @@ namespace DNT.Domain.Service
             return forHelpRequestsDtos;
         }
 
+        public async Task<Guid> CreateReturnId(ForHelpRequestCUDto entityCUDto)
+        {
+            var entity = MapCUDtoToEntity(entityCUDto);
+
+            await _baseRepository.Create(entity);
+
+            await _baseRepository.SaveChanges();
+
+            return entity.Id;
+        }
+
         public async Task<IEnumerable<ForHelpRequestDto>> GetByOrganizationId(Guid organizationId)
         {
             var forHelpRequests = await _forHelpRequestRepository.GetByOrganizationId(organizationId);
