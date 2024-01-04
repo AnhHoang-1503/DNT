@@ -57,7 +57,7 @@ namespace DNT.Domain
 
             entity.Role = exits.Role;
 
-            if (string.IsNullOrEmpty(entity.Password))
+            if (string.IsNullOrEmpty(entityCUDto.Password))
             {
                 entity.Password = exits.Password;
             }
