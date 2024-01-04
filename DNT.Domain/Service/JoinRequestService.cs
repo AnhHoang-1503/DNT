@@ -15,6 +15,15 @@ namespace DNT.Domain
             _joinRequestRepository = joinRequestRepository;
         }
 
+        public async Task<IEnumerable<JoinRequestDto>> GetByUserId(Guid userId)
+        {
+            var forHelpRequests = await _joinRequestRepository.GetByUserId(userId);
+
+            var forHelpRequestsDtos = _mapper.Map<IEnumerable<JoinRequestDto>>(forHelpRequests);
+
+            return forHelpRequestsDtos;
+        }
+
         public async Task<IEnumerable<JoinRequestDto>> GetByOrganization_Id(Guid organizationId)
         {
             var request = await _joinRequestRepository.GetByOrganization_Id(organizationId);

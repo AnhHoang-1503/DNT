@@ -8,5 +8,8 @@
         /// <param name="Organization_Id"></param>
         /// <returns></returns>
         Task<IEnumerable<JoinRequest>> GetByOrganization_Id(Guid Organization_Id);
+
+        Task<IEnumerable<JoinRequest>> GetByUserId(Guid userId);
+
     }
 }

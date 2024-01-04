@@ -15,5 +15,12 @@ namespace DNT.Infrastructure
 
             return request;
         }
+
+        public async Task<IEnumerable<JoinRequest>> GetByUserId(Guid userId)
+        {
+            var request = await _dbSet.Where(x => x.User_Id == userId).ToListAsync();
+
+            return request;
+        }
     }
 }
