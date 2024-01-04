@@ -23,5 +23,12 @@ namespace DNT.Controllers
 
             return StatusCode(StatusCodes.Status200OK, eventDtos);
         }
+
+        public override async Task<IActionResult> Create([FromBody] EventCUDto entityCUDto)
+        {
+            var id = await _eventService.CreateReturnId(entityCUDto);
+
+            return StatusCode(StatusCodes.Status200OK, id);
+        }
     }
 }

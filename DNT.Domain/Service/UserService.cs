@@ -57,6 +57,11 @@ namespace DNT.Domain
 
             entity.Role = exits.Role;
 
+            if (string.IsNullOrEmpty(entity.Password))
+            {
+                entity.Password = exits.Password;
+            }
+
             await _baseRepository.Update(id, entity);
 
             await _baseRepository.SaveChanges();

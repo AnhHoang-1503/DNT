@@ -20,6 +20,17 @@ namespace DNT.Domain.Service
             return eventDtos;
         }
 
+        public async Task<Guid> CreateReturnId(EventCUDto entityCUDto)
+        {
+            var entity = MapCUDtoToEntity(entityCUDto);
+
+            await _baseRepository.Create(entity);
+
+            await _baseRepository.SaveChanges();
+
+            return entity.Id;
+        }
+
         public override Event MapCUDtoToEntity(EventCUDto entityCUDto)
         {
             var eventEntity = _mapper.Map<Event>(entityCUDto);
