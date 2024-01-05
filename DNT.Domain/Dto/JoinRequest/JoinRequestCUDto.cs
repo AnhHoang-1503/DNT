@@ -2,7 +2,7 @@
 {
     public class JoinRequestCUDto
     {
-        public DateTime Support_Time { get; set; }
+        public string? Support_Time { get; set; }
 
         public string? Location { get; set; }
 

@@ -8,7 +8,7 @@
 
         public Guid User_Id { get; set; }
 
-        public DateTime Support_Time { get; set; }
+        public string? Support_Time { get; set; }
 
         public string? Location { get; set; }
 
