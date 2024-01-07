@@ -8,11 +8,39 @@ namespace DNT.Domain
     {
         private readonly UserSessionState _userSessionState;
         private readonly IJoinRequestRepository _joinRequestRepository;
+        private readonly IVolunteerRepository _volunteerRepository;
+        private readonly IIsMemberRepository _isMemberRepository;
 
-        public JoinRequestService(IJoinRequestRepository joinRequestRepository, UserSessionState userSessionState, IMapper mapper) : base(joinRequestRepository, mapper)
+        public JoinRequestService(IJoinRequestRepository joinRequestRepository, UserSessionState userSessionState, IMapper mapper, IVolunteerRepository volunteerRepository, IIsMemberRepository isMemberRepository) : base(joinRequestRepository, mapper)
         {
             _userSessionState = userSessionState;
             _joinRequestRepository = joinRequestRepository;
+            _volunteerRepository = volunteerRepository;
+            _isMemberRepository = isMemberRepository;
+        }
+
+        public async Task AppoveJoinRequest(Guid id)
+        {
+            var request = await _joinRequestRepository.GetById(id);
+
+            if (request.Status == Status.approved)
+            {
+                throw new Exception("Yêu cầu đã được xác nhận");
+            }
+
+            request.Status = Status.approved;
+            await _joinRequestRepository.Update(id, request);
+
+            var volunteer = await _volunteerRepository.GetByUserId(request.User_Id);
+
+            if (volunteer == null)
+            {
+                throw new Exception("Người dùng không phải tình nguyện viên");
+            }
+
+            await _isMemberRepository.Create(new IsMember { Id = Guid.NewGuid(), Organization_Id = request.Organization_Id, Volunteer_Id = volunteer.Id });
+
+            await _baseRepository.SaveChanges();
         }
 
         public async Task<IEnumerable<JoinRequestDto>> GetByUserId(Guid userId)

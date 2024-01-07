@@ -32,5 +32,13 @@ namespace DNT.Controllers
 
             return StatusCode(StatusCodes.Status200OK, forHelpRequestDtos);
         }
+
+        [HttpPost("approve/{id}")]
+        public async Task<IActionResult> AppoveJoinRequest(Guid id)
+        {
+            await _joinRequestService.AppoveJoinRequest(id);
+
+            return StatusCode(StatusCodes.Status200OK);
+        }
     }
 }
